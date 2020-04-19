@@ -21,9 +21,15 @@ Route::post('/category/store','CategoryController@store');
 Route::get('/category/{id}/edit','CategoryController@edit');
 Route::post('/category/update','CategoryController@update');
 Route::get('/category/{id}/delete','CategoryController@delete');
+
+Route::get('/category/{id}/createproduct','ProductController@create');
+Route::post('/category/{id}/storeproduct','ProductController@store');
+Route::get('/product/{id}/edit','ProductController@edit');
+Route::post('/product/update','ProductController@update');
+Route::get('/product/{id}/delete','ProductController@delete');
+
 Route::get('/category/{id}','CategoryController@show');
 
-Route::get('/justproduct', 'ProductController@index');
 Route::get('/card', function () { return view('product_pages.card');} );
 Route::get('/history', function () { return view('product_pages.history');} );
 

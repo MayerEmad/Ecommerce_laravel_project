@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
@@ -48,7 +49,12 @@ class categoryController extends Controller
     public function show($id)
     {
         $category=Category::find($id);
-        return view('pages.catShow')->with('category',$category);
+        $products= DB::table('products')->where('category_id', $category->id)->get();
+        $data = array(
+            'category' =>  $category,
+            'products' => $products
+        );
+        return view('pages.catShow')->with('data',$data);
     }
 
     public function edit($id)
@@ -78,6 +84,19 @@ class categoryController extends Controller
     public function delete($id)
     {
         $category=Category::find($id);
+        $products= DB::table('products')->where('category_id', $category->id)->get();
+        foreach($products as $product)
+        {
+            if($product->image!='noimage.jpg')
+                Storage::delete('public/images/'.$product->image);   // images path
+            
+                $product=Product::find($product->id);
+                $product->delete();
+        }
+        if($category->image!='noimage.jpg')
+        {
+            Storage::delete('public/cover_images/'.$category->image);
+        }
         $category->delete();
         return redirect('/category')->with('success','Category Deleted Succesfully.');
     }

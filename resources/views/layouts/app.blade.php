@@ -76,6 +76,7 @@
                 </div>
             </div>
         </nav>
+            <div style="margin-top:60px"></div>
             @include('inc.messages')
             @yield('content')
         

@@ -3,7 +3,7 @@
 @section('content')
 <h1>Edit category</h1>  
 
-   <div class="container"style="margin-top:55px">
+   <div class="container">
         <form action="/category/update" method="POST" enctype="multipart/form-data">
              @csrf
             <div class="form-group">
