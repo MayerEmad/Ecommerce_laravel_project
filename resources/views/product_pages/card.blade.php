@@ -1,13 +1,38 @@
 @extends('layouts.app')
 
 @section('content')
+<?php
+    use App\Category;
+    use App\Product;
+    use App\Card;
+    use Auth as a;
+    ?>
+    @if (Auth::check())
+        <?php $cardItems = Card::all(); $Total_price=0;?>
+        @foreach($cardItems as $item)
+            <?php 
+            $product=Product::find($item->product_id);
+            $item_price=$product->price;
+            $price=$item->product_quantity*$item_price;?>
+            <p style="font-size:20px;font-weight: bold;">
+             Name :{{$product->name}} -- Quantity:x  {{$item->product_quantity}}------>Total price for this item = ${{$price}}
+             </p>
+            <?php $Total_price+=$price;?>
+        @endforeach
+        <br><p style="font-size:30px;font-weight: bold;">TOTAL Price = ${{$Total_price}}</p><br> 
+        <a href="/category" class="btn btn-secondary">Continue Shopping</a>
+        <a href="/product/finishCard" class="btn btn-success">Pay</a>
+        <a href="/product/deleteCard" class="btn btn-danger">delete</a>
+    @else 
+              <p>you have to log in to see your card</p>;
+   @endif
+<!--Mickel Css
 <div class="product-big-title-area0" >
             
     <div class="product-bit-title0">
         <h2>Shopping Cart</h2>
     </div>
 </div> 
-
 
 <form method="post" action="#">
     <table cellspacing="0" class="shop_table0 cart">
@@ -75,6 +100,6 @@
         </tbody>
     </table>
 </div>
-
+-->
 
 @endsection

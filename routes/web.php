@@ -27,6 +27,9 @@ Route::post('/category/{id}/storeproduct','ProductController@store');
 Route::get('/product/{id}/edit','ProductController@edit');
 Route::post('/product/update','ProductController@update');
 Route::get('/product/{id}/delete','ProductController@delete');
+Route::post('/product/{id}/addToCard','ProductController@addToCard');
+Route::get('/product/finishCard','ProductController@finishCard');
+Route::get('/product/deleteCard','ProductController@deleteCard');
 
 Route::get('/category/{id}','CategoryController@show');
 
@@ -34,4 +37,4 @@ Route::get('/card', function () { return view('product_pages.card');} );
 Route::get('/history', function () { return view('product_pages.history');} );
 
 Auth::routes();
-//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');

@@ -29,6 +29,8 @@ class RegisterController extends Controller
      *
      * @var string
      */
+
+    //go to homecontroller to return home view where session start
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**

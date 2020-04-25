@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
-
+use Auth;
 class categoryController extends Controller
 {
     
@@ -17,13 +17,13 @@ class categoryController extends Controller
 
     public function index()
     {
-       // $categories= Category::orderby('created_at','desc')->paginate(4);
         $categories= Category::all();
         return view('pages.categories')->with('categories',$categories);
     }
 
     public function create()
     {
+        if(Auth::id()!=1)return redirect('/category'); 
         return view('pages.catCreate');
     }
 
@@ -59,6 +59,7 @@ class categoryController extends Controller
 
     public function edit($id)
     {
+        if(Auth::id()!=1)return redirect('/category'); 
         $category=Category::find($id);
         return view('pages.catEdit')->with('category',$category);
     }
@@ -83,6 +84,7 @@ class categoryController extends Controller
 
     public function delete($id)
     {
+        if(Auth::id()!=1)return redirect('/category'); 
         $category=Category::find($id);
         $products= DB::table('products')->where('category_id', $category->id)->get();
         foreach($products as $product)

@@ -1,8 +1,35 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="product-big-title-area0">
-            
+
+<?php
+    use App\Product;
+    use App\Card;
+    use App\History;
+    use Auth as a;
+?>
+   
+    @if (Auth::check()) 
+          <?php $historyItems = History::where('user_id',Auth::id())->get()?>
+         @if ($historyItems!=null) 
+                @foreach($historyItems as $item)
+                <div class="container p-1 my-2 border">
+                    <p style="font-size:15px; font-weight: bold;">                 
+                      Name: {{$item->product_name}} , Price: {{$item->product_price}}$ , Quantity: {{$item->product_quantity}} 
+                      , Total_price_for_item: {{$item->product_total_cost}}$
+                    </p> 
+                    <p style="font-size:15px; font-weight: bold; margin:6px"> At: {{$item->created_at}}</p>
+                </div>
+                @endforeach
+         @else 
+         <p>you have no History</p>
+         @endif
+    @else 
+       <p>you have to log in to see your History</p>
+    @endif
+     
+    
+<!--<div class="product-big-title-area0">         
     <div class="product-bit-title0">
         <h2>Shopping History</h2>
     </div>
@@ -68,5 +95,5 @@
             </tr>
         </tbody>
     </table>
-</div>
+</div>-->
 @endsection

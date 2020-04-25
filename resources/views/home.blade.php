@@ -13,7 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                     <!--categories.blade.php--->
+                    @php App\Http\Controllers\productController::deleteCard();@endphp
                     You are logged in!
                 </div>
             </div>
